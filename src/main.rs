@@ -10,11 +10,16 @@ fn main() {
 
     println!("Hello {} and {}. Good luck!", &player_1_name.as_str(), &player_2_name.as_str());
 
-    let player_1_num: u16 = input_numbers(&player_1_name.as_str()); 
+    let player_1_num: u16 = input_numbers(&player_1_name.as_str(), "create"); 
+    let player_2_num: u16 = input_numbers(&player_2_name.as_str(), "create"); 
 
-    let player_2_num: u16 = input_numbers(&player_2_name.as_str()); 
+    loop {
+        let guess_1: u16 = input_numbers(&player_1_name.as_str(), "guess");
+        
+        
+        let guess_2: u16 = input_numbers(&player_2_name.as_str(), "guess");
 
-
+    }
 
 }
 
@@ -30,11 +35,13 @@ fn input_name(num: &str) -> String {
     return name
 }
 
-fn input_numbers(player_name: &str) -> u16 {
+fn input_numbers(player_name: &str, mode: &str) -> u16 {
     loop {
-
-        println!("{}, enter 4 digit number that have different digits", player_name);
-
+        if mode == "create" {
+            println!("{}, write your 4 digit number that have different digits. It should be hard to your opponent to guess it", player_name);
+        } else {
+            println!("{}, guess your opponent number", player_name)
+        }
         let mut player_num = String::new();
         io::stdin().read_line(&mut player_num)
             .expect("Input error");
@@ -42,12 +49,13 @@ fn input_numbers(player_name: &str) -> u16 {
         let player_num: u16 = match player_num.trim().parse() {
             Ok(num) => num,
             Err(_) => {
-                println!("Error");
+                println!("Number must contain only 4 digits!");
                 continue},
         };
 
         return player_num
-    }
+        
+    }    
 
 }
 
