@@ -8,11 +8,11 @@ fn main() {
     let player_1_name: String = input_name("1"); 
     let player_2_name: String = input_name("2"); 
 
-    println!("Hello {} and {}. Good luck!", player_1_name.as_str(), player_2_name.as_str());
+    println!("Hello {} and {}. Good luck!", &player_1_name.as_str(), &player_2_name.as_str());
 
-    let player_1_num: u16 = input_numbers(&player_1_name[0..player_1_name.len()-1]); 
+    let player_1_num: u16 = input_numbers(&player_1_name.as_str()); 
 
-    let player_2_num: u16 = input_numbers(&player_2_name[0..player_2_name.len()-1]); 
+    let player_2_num: u16 = input_numbers(&player_2_name.as_str()); 
 
 
 
@@ -21,10 +21,12 @@ fn main() {
 fn input_name(num: &str) -> String {
     println!("Player{}, please enter your name", num);
 
-    let mut name = String::new();
+    let mut name = String::with_capacity(30);
     io::stdin().read_line(&mut name)
         .expect("Input error");
 
+    
+    name.remove(name.len() - 1);
     return name
 }
 
